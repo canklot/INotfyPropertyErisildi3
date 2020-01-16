@@ -90,10 +90,19 @@ namespace INotfyPropertyErisildi3
 
         public static T CreateType<T>() where T : class           //Generic class'ın tanımlanması                                           
         {
-            //var assemblyName = "MyProxies";
-            var name = new AssemblyName("MyProxies");
+            
+            var name = new AssemblyName("MyProxies"); 
+            //Asembly oluşturabilmek için önce bir AssemblyName denen kimlik kartı benzeri bir yapı oluşturulmalı.
+            //Bu AssemblyName basit bir isme, versiyon numarasına ve şifreleme anahtarlarına sahip olmalı.
+            //Bu yapıyı oluşturmak için ise AssemblyName fonksiyonu kullanıyoruz
+
             var assembly = AssemblyBuilder.DefineDynamicAssembly(name, AssemblyBuilderAccess.Run);
+            //Bir assembly oluşturuyoruz. Assembly ise module denen yapıları tutan bir başka yapı
+
+
             var ModuleYaratici = assembly.DefineDynamicModule("MyProxies");
+
+            //Bir moduler oluşturuyoruz. Modüller derlenmiş il kodu tutan yapılar. ör:dll dosyaları
             var TipYaratici = ModuleYaratici.DefineType("MyPersonProxy", TypeAttributes.Class | TypeAttributes.Public, typeof(T));
 
             bool MyClassAttribute = typeof(T).GetCustomAttribute<ImplementPropertyErisildiAttribute>() != null;     //Girdi olarak alınan sınıfın attribute'ünün kontrol edilmesi                              
@@ -103,8 +112,8 @@ namespace INotfyPropertyErisildi3
             if (MyClassAttribute == false && NotifyPropertyErisildiAttribute == false) //Hem sınıfta hemde barındırdığı property'lerde bizim attribute yok ise
                 return Activator.CreateInstance<T>();                                    // sınıfa kod enjekte edilmeyeceği için sınıfın işlem görmeden yaratılması
 
-            TipYaratici.AddInterfaceImplementation(typeof(INotifyPropertyErisildi)); //Interface'in uygulanması
-            TipYaratici.DefineDefaultConstructor(MethodAttributes.Public); //Constructor'ün tanımlanması
+            TipYaratici.AddInterfaceImplementation(typeof(INotifyPropertyErisildi)); //MyPersonProxy sınıfına Interface'in uygulanması
+            //TipYaratici.DefineDefaultConstructor(MethodAttributes.Public); //Constructor'ün tanımlanması
 
             //Event oluşturmak için bir EventBuilder oluşturuyoruz tipi "PropertyGetEventHandler"
             EventBuilder eventBuilder = TipYaratici.DefineEvent("PropertyErisildi", EventAttributes.ReservedMask | EventAttributes.RTSpecialName | EventAttributes.SpecialName, typeof(PropertyErisildiEventHandler));
