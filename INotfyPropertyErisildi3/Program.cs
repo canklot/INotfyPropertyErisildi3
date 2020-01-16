@@ -113,7 +113,6 @@ namespace INotfyPropertyErisildi3
                 return Activator.CreateInstance<T>();                                    // sınıfa kod enjekte edilmeyeceği için sınıfın işlem görmeden yaratılması
 
             TipYaratici.AddInterfaceImplementation(typeof(INotifyPropertyErisildi)); //MyPersonProxy sınıfına Interface'in uygulanması
-            //TipYaratici.DefineDefaultConstructor(MethodAttributes.Public); //Constructor'ün tanımlanması
 
             //Event oluşturmak için bir EventBuilder oluşturuyoruz tipi "PropertyGetEventHandler"
             EventBuilder eventBuilder = TipYaratici.DefineEvent("PropertyErisildi", EventAttributes.ReservedMask | EventAttributes.RTSpecialName | EventAttributes.SpecialName, typeof(PropertyErisildiEventHandler));
