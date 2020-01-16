@@ -1,0 +1,12 @@
+
+.vs/INotfyPropertyErisildi3/v16/.suo
+*.lock
+*.ide
+*.ide-shm
+*.ide-wal
+*.config
+*.exe
+*.pdb
+*.cache
+INotfyPropertyErisildi3/obj/Debug/INotfyPropertyErisildi3.csproj.FileListAbsolute.txt
+INotfyPropertyErisildi3/Properties/AssemblyInfo.cs
